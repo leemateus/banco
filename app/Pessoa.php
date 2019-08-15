@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Conta;
 
 class Pessoa extends Model
 {
@@ -11,4 +12,9 @@ class Pessoa extends Model
     protected $hidden = ['created_at', 'updated_at'];
 
     protected $table = 'pessoas';
+
+    public function conta()
+    {
+        return $this->hasOne('Conta');
+    }
 }

@@ -3,6 +3,7 @@
 namespace App;
 
 use Illuminate\Database\Eloquent\Model;
+use App\Conta;
 
 class TipoConta extends Model
 {
@@ -10,5 +11,10 @@ class TipoConta extends Model
 
     protected $fillable = ['nome', 'limite'];
 
-    protected $hodden = ['created_at', 'updated_at'];
+    protected $hidden = ['created_at', 'updated_at'];
+
+    public function conta()
+    {
+        return $this->belongsTo('Conta');
+    }
 }
