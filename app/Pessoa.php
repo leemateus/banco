@@ -15,6 +15,6 @@ class Pessoa extends Model
 
     public function conta()
     {
-        return $this->hasOne('Conta');
+        return $this->hasOne(Conta::class, 'id_pessoa');
     }
 }

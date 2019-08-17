@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Pessoa;
+use App\Conta;
 use Illuminate\Http\Request;
 use App\Http\Requests\PessoaRequest;
 
@@ -15,8 +16,8 @@ class PessoaController extends Controller
      */
     public function index()
     {
-        $pessoa = Pessoa::all();
-
+        $pessoa = Pessoa::with('conta')->get();
+        // $pessoa = Pessoa::all();
 
         return response()->json($pessoa);
     }

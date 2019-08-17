@@ -4,6 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\TipoConta;
+use App\Pessoa;
 
 class Conta extends Model
 {
@@ -11,13 +12,15 @@ class Conta extends Model
 
     protected $fillable = ['saldo', 'id_tipo_conta', 'id_pessoa'];
 
+    protected $hidden = ['updated_at', 'created_at'];
+
     public function tipo_conta()
     {
-        return $this->morphMany('TipoConta');
+        return $this->morphMany(TipoConta::class, 'id_tipo_conta', 'id');
     }
 
     public function pessoa()
     {
-        return $this->hasOne('TipoConta');
+        return $this->hasOne(Pessoa::class, 'id_pessoa', 'id');
     }
 }
