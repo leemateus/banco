@@ -82,7 +82,6 @@ class PessoaController extends Controller
         $result = $pessoa->update([
             'nome' => $request->nome,
             'sobrenome' => $request->sobrenome
-
         ]);
 
         return response()->json($pessoa);
