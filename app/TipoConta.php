@@ -7,7 +7,7 @@ use App\Conta;
 
 class TipoConta extends Model
 {
-    protected $table = 'contas';
+    protected $table = 'tipo_contas';
 
     protected $fillable = ['nome', 'limite'];
 

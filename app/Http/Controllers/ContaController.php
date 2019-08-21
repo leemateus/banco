@@ -83,7 +83,7 @@ class ContaController extends Controller
         //
     }
 
-    public public function transferencia(Request $request, Conta $conta)
+    public public function transferencia(Request $request)
     {
         $idContaCredita = $request->idContaCreditada;
         $valor = $request->valor;
@@ -93,7 +93,9 @@ class ContaController extends Controller
         ->select('id')
         ->first();
 
-        $result = Conta->transferencia($idContaDebita, $idContaCredita, $valor)
+        $result = Conta->transferencia($idContaDebita, $idContaCredita, $valor);
+
+        return $result;
 
     }
 }
