@@ -4,7 +4,7 @@ namespace App;
 
 use Illuminate\Database\Eloquent\Model;
 use App\TipoConta;
-use App\Pessoa;
+use App\User;
 
 class Conta extends Model
 {
@@ -16,18 +16,17 @@ class Conta extends Model
 
     public function tipo_conta()
     {
-        return $this->morphMany(TipoConta::class, 'id_tipo_conta', 'id');
+        return $this->belongsTo(TipoConta::class, 'id_tipo_conta', 'id');
     }
 
-    public function pessoa()
+    public function user()
     {
-        return $this->hasOne(Pessoa::class, 'id_pessoa', 'id');
+        return $this->hasOne(User::class, 'id_pessoa', 'id');
     }
 
-    public function getSaldo($id)
+    Userublic function getSaldo($id)
     {
-        return $this->Conta::
-        ->where('$id', '=', '$this->id')
+        return $this->where('id', '=', $id)
         ->select('saldo')
         ->get();
     }
@@ -46,23 +45,27 @@ class Conta extends Model
         return $valida;
     }
 
-    public function transferecia($idContaDebita, $idContaCredita, $valor, $contaDebita)
+    public function transferecia($idContaDebita, $idContaCredita, $valor)
     {
-        $validaTransferencia = false;
+        $validaTransferencia = false; // variavel local - apenas nessa funcao
 
         $saldoContaDebita = $this->getSaldo($idContaDebita);
 
         $saldoContaCredita = $this->getSaldo($idContaCredita);
 
-        $aux = $this->validaTransferencia($valor, $idContaDebita);
+        $aux = $this->validaTransferencia($valor, $idContaDebita); // saber se a conta que sera debitada tem saldo suficiente
 
         if($aux == true)
         {
+            $contaDebita = $this->where('id', '=', $idContaDebita)->first();
+
             $contaDebita->update([ //objeto da conta q será debitada - operacao débito
-                'saldo' => $saldoContaDebita - $request->saldo;
+                'saldo' => $saldoContaDebita - $valor;
             ]);
 
-            Conta::where('id', '=', '$idContaCredita') // operacao crédito
+            $contaCredita = $this->where('id', '=', $idContaCredita)->first();
+
+            $contaCredita->where('id', '=', $idContaCredita) // operacao crédito
             ->update([
                 'saldo' => $saldoContaCredita + $valor
             ]);

@@ -82,4 +82,18 @@ class ContaController extends Controller
     {
         //
     }
+
+    public public function transferencia(Request $request, Conta $conta)
+    {
+        $idContaCredita = $request->idContaCreditada;
+        $valor = $request->valor;
+        $idUserContaDebita = auth()->user()->id; // usuario que faz a transferencia..
+
+        $idContaDebita = Conta::where('id_pessoa', '=', $idUserContaDebita)// id da conta do usuario logado
+        ->select('id')
+        ->first();
+
+        $result = Conta->transferencia($idContaDebita, $idContaCredita, $valor)
+
+    }
 }

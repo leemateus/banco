@@ -16,5 +16,11 @@ class UserTableSeeder extends Seeder
           'email' => 'lee@email.com',
           'password' => bcrypt(12345)
         ]);
+
+        \App\User::create([
+            'name' => 'Lee2',
+            'email' => 'lee2@email.com',
+            'password' => bcrypt(12345)
+        ]);
     }
 }
