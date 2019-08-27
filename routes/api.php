@@ -28,8 +28,8 @@ Route::group([
     Route::post('me', 'AuthController@me');
 });
 
-Route::get('pessoa/', 'PessoaController@index');
-Route::post('pessoa/', 'PessoaController@store');
-Route::put('pessoa/{pessoa}', 'PessoaController@update');
-Route::get('pessoa/{pessoa}', 'PessoaController@show');
+// Route::get('pessoa/', 'PessoaController@index');
+// Route::post('pessoa/', 'PessoaController@store');
+// Route::put('pessoa/{pessoa}', 'PessoaController@update');
+// Route::get('pessoa/{pessoa}', 'PessoaController@show');
 Route::post('transferecia', 'ContaController@transferecia');

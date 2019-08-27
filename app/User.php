@@ -6,7 +6,7 @@ use Tymon\JWTAuth\Contracts\JWTSubject;
 use Illuminate\Contracts\Auth\MustVerifyEmail;
 use Illuminate\Notifications\Notifiable;
 use Illuminate\Foundation\Auth\User as Authenticatable;
-use \App\Conta;
+use App\Conta;
 
 // class User extends Authenticatable //default
 class User extends Authenticatable implements JWTSubject
@@ -62,6 +62,6 @@ class User extends Authenticatable implements JWTSubject
 
     public function conta()
     {
-        return $this->hasOne(Conta::class, 'id', 'id_pessoa');
+        return $this->hasOne(Conta::class);
     }
 }

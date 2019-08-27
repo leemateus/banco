@@ -20,8 +20,8 @@ class CreateContasTable extends Migration
 
             $table->unsignedBigInteger('id_tipo_conta');
             $table->foreign('id_tipo_conta')->references('id')->on('tipo_contas')->onDelete('cascade');
-            $table->unsignedBigInteger('id_pessoa');
-            $table->foreign('id_pessoa')->references('id')->on('pessoas')->onDelete('cascade');
+            $table->unsignedBigInteger('user_id');
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('cascade');
         });
     }
 

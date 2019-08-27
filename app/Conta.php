@@ -10,7 +10,7 @@ class Conta extends Model
 {
     protected $table = 'contas';
 
-    protected $fillable = ['saldo', 'id_tipo_conta', 'id_pessoa'];
+    protected $fillable = ['saldo', 'id_tipo_conta'];
 
     protected $hidden = ['updated_at', 'created_at'];
 
@@ -21,10 +21,10 @@ class Conta extends Model
 
     public function user()
     {
-        return $this->hasOne(User::class, 'id_pessoa', 'id');
+        return $this->belongsTo(User::class);
     }
 
-    Userublic function getSaldo($id)
+    public function getSaldo($id)
     {
         return $this->where('id', '=', $id)
         ->select('saldo')
@@ -60,7 +60,7 @@ class Conta extends Model
             $contaDebita = $this->where('id', '=', $idContaDebita)->first();
 
             $contaDebita->update([ //objeto da conta q será debitada - operacao débito
-                'saldo' => $saldoContaDebita - $valor;
+                'saldo' => $saldoContaDebita - $valor,
             ]);
 
             $contaCredita = $this->where('id', '=', $idContaCredita)->first();

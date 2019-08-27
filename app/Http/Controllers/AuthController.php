@@ -27,8 +27,9 @@ class AuthController extends Controller
           'email' => $request->email
         ]);
 
-        $user->conta::create([
-            'saldo' => 50,00
+        $user->conta()->create([
+            'saldo' => 50.00,
+            'id_tipo_conta' => 1,
         ]);
 
         return $this->login($request);
