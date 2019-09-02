@@ -26,9 +26,11 @@ class Conta extends Model
 
     public function getSaldo($id)
     {
-        return $this->where('id', '=', $id)
-        ->select('saldo')
-        ->get();
+        return $this->find($id)->saldo;
+        // return self::where('id', '=', $id)
+        // ->select('saldo')
+        // ->first();
+
     }
 
     public function validaTransferencia($valor, $id)
@@ -45,7 +47,7 @@ class Conta extends Model
         return $valida;
     }
 
-    public function transferecia($idContaDebita, $idContaCredita, $valor)
+    public function transferencia($idContaDebita, $idContaCredita, $valor)
     {
         $validaTransferencia = false; // variavel local - apenas nessa funcao
 

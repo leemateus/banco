@@ -83,19 +83,26 @@ class ContaController extends Controller
         //
     }
 
-    public public function transferencia(Request $request)
+    public function transferencia(Request $request)
     {
-        $idContaCredita = $request->idContaCreditada;
+        $idContaCredita = $request->idContaCredita;
         $valor = $request->valor;
         $idUserContaDebita = auth()->user()->id; // usuario que faz a transferencia..
 
-        $idContaDebita = Conta::where('id_pessoa', '=', $idUserContaDebita)// id da conta do usuario logado
-        ->select('id')
-        ->first();
+        $idContaDebita = Conta::where('user_id', '=', $idUserContaDebita)// id da conta do usuario logado
+        ->first()->id;
 
-        $result = Conta->transferencia($idContaDebita, $idContaCredita, $valor);
+        $processo = new Conta();
 
-        return $result;
+        if ($processo->transferencia($idContaDebita, $idContaCredita, $valor)) {
+            return [
+                'status' => true
+            ];
+        }
+
+        return [
+            'status' => false
+        ];
 
     }
 }
