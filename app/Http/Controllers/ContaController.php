@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Conta;
+use App\Http\Requests\Conta\ContaTranferencia;
 use Illuminate\Http\Request;
 
 class ContaController extends Controller
