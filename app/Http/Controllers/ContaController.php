@@ -94,15 +94,28 @@ class ContaController extends Controller
 
         $processo = new Conta();
 
-        if ($processo->transferencia($idContaDebita, $idContaCredita, $valor)) {
+        $aux = $processo->transferencia($idContaDebita, $idContaCredita, $valor);
+
+        if($aux == 1)
+        {
             return [
-                'status' => true
+                'status' => 'transferencia realizada com sucesso'
             ];
         }
 
-        return [
-            'status' => false
-        ];
+        if($aux == 2)
+        {
+            return [
+                'status' => 'conta para transferir não existe ou está incorreta'
+            ];
+        }
+
+        if($aux == 3)
+        {
+            return [
+                'status' => 'conta não tem saldo para transferencia'
+            ];
+        }
 
     }
 }

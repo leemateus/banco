@@ -49,13 +49,24 @@ class Conta extends Model
 
     public function transferencia($idContaDebita, $idContaCredita, $valor)
     {
-        $validaTransferencia = false; // variavel local - apenas nessa funcao
+        // $validaTransferencia = false; // variavel local - apenas nessa funcao
 
         $saldoContaDebita = $this->getSaldo($idContaDebita);
 
-        $saldoContaCredita = $this->getSaldo($idContaCredita);
+        try {
+
+            $saldoContaCredita = $this->getSaldo($idContaCredita);
+
+        } catch (\Exception $e) {
+            $result = 2; // conta que ira receber nao existe ou esta incorreta
+
+            return $result;
+        }
+
+
 
         $aux = $this->validaTransferencia($valor, $idContaDebita); // saber se a conta que sera debitada tem saldo suficiente
+
 
         if($aux == true)
         {
@@ -72,9 +83,18 @@ class Conta extends Model
                 'saldo' => $saldoContaCredita + $valor
             ]);
 
-            $validaTransferencia = true;
+            $result = 1; //transferencia com sucesso.
         }
 
-        return $validaTransferencia;
+
+
+
+        else
+        {
+            $result = 3; // conta não tem saldo para transferencia.
+        }
+
+        return $result;
+
     }
 }
