@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Conta;
+use App\Pessoa;
 use App\Http\Requests\Conta\ContaTranferencia;
 use Illuminate\Http\Request;
 
@@ -15,7 +16,7 @@ class ContaController extends Controller
      */
     public function index()
     {
-        //
+        return Response()->json('ok');
     }
 
     /**
@@ -47,7 +48,9 @@ class ContaController extends Controller
      */
     public function show(Conta $conta)
     {
-        //
+
+        return Response()->json($conta);
+        // return 'ok';
     }
 
     /**
@@ -118,5 +121,14 @@ class ContaController extends Controller
             ];
         }
 
+    }
+
+    public function minhaconta(){
+        $user = auth()->user()->id; // id do usuário logado
+        // return $user;
+        // $conta = new Conta();
+        $minhaconta = Conta::where('user_id', '=', $user)->first();
+
+        return Response()->json($minhaconta);
     }
 }

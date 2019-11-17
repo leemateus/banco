@@ -22,14 +22,21 @@ Route::group([
     'prefix' => 'auth'
 ], function ($router) {
     Route::post('login', 'AuthController@login');
-    Route::post('register', 'AuthController@register');
     Route::post('logout', 'AuthController@logout');
     Route::post('refresh', 'AuthController@refresh');
     Route::post('me', 'AuthController@me');
+});
+
+Route::group([
+    'middleware' => 'auth:api',
+    'prefix' => 'conta'
+], function(){
+    Route::get('minhaconta','ContaController@minhaconta');
+    Route::post('transferencia', 'ContaController@transferencia');
 });
 
 // Route::get('pessoa/', 'PessoaController@index');
 // Route::post('pessoa/', 'PessoaController@store');
 // Route::put('pessoa/{pessoa}', 'PessoaController@update');
 // Route::get('pessoa/{pessoa}', 'PessoaController@show');
-Route::post('transferencia', 'ContaController@transferencia');
+Route::post('register', 'AuthController@register');
