@@ -125,10 +125,25 @@ class ContaController extends Controller
 
     public function minhaconta(){
         $user = auth()->user()->id; // id do usuário logado
-        // return $user;
-        // $conta = new Conta();
+
         $minhaconta = Conta::where('user_id', '=', $user)->first();
 
         return Response()->json($minhaconta);
+    }
+
+    public function deposito(Request $request){
+        $user = auth()->user()->id; // id do usuário logado
+
+        $contaCreditada = Conta::where('user_id', '=', $user)->first();
+
+        $saldo = $contaCreditada->saldo; // saldo da conta que irá receber o depósito
+
+        $contaCreditada->update([
+            'saldo' => $request->valorCreditado + $saldo,
+        ]);
+
+        $aux = $contaCreditada->saldo;
+
+        return Response()->json($aux);
     }
 }
