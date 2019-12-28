@@ -142,8 +142,8 @@ class ContaController extends Controller
             'saldo' => $request->valorCreditado + $saldo,
         ]);
 
-        $aux = $contaCreditada->saldo;
+        $novoSaldo = $contaCreditada->saldo;
 
-        return Response()->json($aux);
+        return [ 'status' => 'Deposito realizado com sucesso', 'Novo saldo' => $novoSaldo];
     }
 }
