@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Conta;
 use App\Pessoa;
+use App\Historico;
 use App\Http\Requests\Conta\ContaTranferencia;
 use Illuminate\Http\Request;
 
@@ -123,7 +124,8 @@ class ContaController extends Controller
 
     }
 
-    public function minhaconta(){
+    public function minhaconta()
+    {
         $user = auth()->user()->id; // id do usuário logado
 
         $minhaconta = Conta::where('user_id', '=', $user)->first();
@@ -131,7 +133,8 @@ class ContaController extends Controller
         return Response()->json($minhaconta);
     }
 
-    public function deposito(Request $request){
+    public function deposito(Request $request)
+    {
         $user = auth()->user()->id; // id do usuário logado
 
         $contaCreditada = Conta::where('user_id', '=', $user)->first();
@@ -144,6 +147,13 @@ class ContaController extends Controller
 
         $novoSaldo = $contaCreditada->saldo;
 
-        return [ 'status' => 'Deposito realizado com sucesso', 'Novo saldo' => $novoSaldo];
+        $historico = Historico::create([
+            'id_conta' => $contaCreditada->id,
+            'saldoNew' => $novoSaldo,
+            'saldoOld' => $saldo,
+            'descricao' => $request->descricao,
+        ]);
+
+        return [ 'status' => 'Deposito realizado com sucesso', 'Novo saldo' => $novoSaldo, 'saldo anterior' => $saldo, 'valor depositado' => $request->valorCreditado];
     }
 }

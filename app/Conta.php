@@ -24,6 +24,11 @@ class Conta extends Model
         return $this->belongsTo(User::class);
     }
 
+    public function historico()
+    {
+            return $this->hasMany('id', 'id_conta');
+    }
+
     public function getSaldo($id)
     {
         return $this->find($id)->saldo;
