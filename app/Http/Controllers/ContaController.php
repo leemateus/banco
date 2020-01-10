@@ -156,4 +156,21 @@ class ContaController extends Controller
 
         return [ 'status' => 'Deposito realizado com sucesso', 'Novo saldo' => $novoSaldo, 'saldo anterior' => $saldo, 'valor depositado' => $request->valorCreditado];
     }
+
+    public function extrato(Request $request)
+    {
+        $user = auth()->user()->id; // id do usuário logado
+
+        $conta = Conta::where('user_id', '=', $user)->first(); // conta do cliente
+
+        $extrato = Historico::whereYear('created_at', '=', $request->ano)
+        ->whereMonth('created_at', '=', $request->mes)
+        ->where('id_conta', '=', $conta->id)
+        ->get();
+
+        // dd($request->mes);
+
+        return Response()->json($extrato);
+    }
+
 }

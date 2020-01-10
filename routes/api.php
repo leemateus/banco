@@ -34,6 +34,7 @@ Route::group([
     Route::get('minhaconta','ContaController@minhaconta');
     Route::post('transferencia', 'ContaController@transferencia');
     Route::post('deposito', 'ContaController@deposito');
+    Route::post('extrato', 'ContaController@extrato');
 });
 
 // Route::get('pessoa/', 'PessoaController@index');

@@ -9,7 +9,7 @@ class Historico extends Model
 {
     protected $fillable = ['descricao', 'saldoOld', 'saldoNew', 'id_conta'];
 
-    protected $hodden = ['created_at', 'update_at'];
+    protected $hidden = ['update_at'];
 
     public function conta(){
         return $this->belongsTo('id_conta', 'id');
