@@ -4,7 +4,7 @@ namespace App\Http\Requests\Conta;
 
 use Illuminate\Foundation\Http\FormRequest;
 
-class ContaTranferencia extends FormRequest
+class ContaDeposito extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,8 +24,7 @@ class ContaTranferencia extends FormRequest
     public function rules()
     {
         return [
-            'valor' => 'required|Numeric',
-            'idContaCredita' => 'required|integer'
+            'valorCreditado' => 'required|Numeric'
         ];
     }
 }

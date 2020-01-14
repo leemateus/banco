@@ -6,6 +6,7 @@ use App\Conta;
 use App\Pessoa;
 use App\Historico;
 use App\Http\Requests\Conta\ContaTranferencia;
+use App\Http\Requests\Conta\ContaDeposito;
 use Illuminate\Http\Request;
 
 class ContaController extends Controller
@@ -133,7 +134,7 @@ class ContaController extends Controller
         return Response()->json($minhaconta);
     }
 
-    public function deposito(Request $request)
+    public function deposito(ContaDeposito $request)
     {
         $user = auth()->user()->id; // id do usuário logado
 
@@ -151,7 +152,7 @@ class ContaController extends Controller
             'id_conta' => $contaCreditada->id,
             'saldoNew' => $novoSaldo,
             'saldoOld' => $saldo,
-            'descricao' => $request->descricao,
+            'descricao' => "deposito",
         ]);
 
         return [ 'status' => 'Deposito realizado com sucesso', 'Novo saldo' => $novoSaldo, 'saldo anterior' => $saldo, 'valor depositado' => $request->valorCreditado];
