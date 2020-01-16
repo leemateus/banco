@@ -8,6 +8,7 @@ use App\Historico;
 use App\Http\Requests\Conta\ContaTranferencia;
 use App\Http\Requests\Conta\ContaDeposito;
 use Illuminate\Http\Request;
+use App\Http\Requests\Conta\ContaExtrato;
 
 class ContaController extends Controller
 {
@@ -158,7 +159,7 @@ class ContaController extends Controller
         return [ 'status' => 'Deposito realizado com sucesso', 'Novo saldo' => $novoSaldo, 'saldo anterior' => $saldo, 'valor depositado' => $request->valorCreditado];
     }
 
-    public function extrato(Request $request)
+    public function extrato(ContaExtrato $request)
     {
         $user = auth()->user()->id; // id do usuário logado
 

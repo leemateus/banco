@@ -24,8 +24,15 @@ class ContaExtrato extends FormRequest
     public function rules()
     {
         return [
-            'ano' => 'required|Numeric',
-            'mes' => 'required|Numeric',
+            'ano' => 'required|string',
+            'mes' => 'required|string',
+        ];
+    }
+
+    public function messages()
+    {
+        return[
+            'required' => 'o campo :attribute é obrigatório',
         ];
     }
 }
