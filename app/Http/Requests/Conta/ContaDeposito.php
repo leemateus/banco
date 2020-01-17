@@ -24,7 +24,7 @@ class ContaDeposito extends FormRequest
     public function rules()
     {
         return [
-            'valorCreditado' => 'required|Numeric'
+            'valorCreditado' => 'required|numeric',
         ];
     }
 }
